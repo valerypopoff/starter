@@ -14,29 +14,6 @@ const child_process = require('child_process');
 const default_scripts = ['server.js', 'app.js'];
 const commands = ['start', 'stop', 'logs'];
 
-const processOperand = function(text)
-{
-    return text;
-}
-
-const builder = function(yargs) 
-{
-    return yargs
-            .positional("command", {describe: "command to implement", default: "start"})
-            .positional("script", {describe: "script to apply a command to"})
-            /*
-            .fail(function (msg, err, yargs) {
-                if (err) throw err // preserve stack
-                console.error('You broke it!')
-                console.error(msg)
-                console.error('You should be doing', yargs.help())
-                process.exit(1)
-              })
-            */
-}
-
-//const handler = function( {firstOperand, secondOperand} ) => console.log( add(firstOperand, secondOperand) );
-
 function stop( script_path, explicit_command )
 {
     return new Promise( (resolve, reject) => 
@@ -228,9 +205,38 @@ function logs( script_path )
 }
 
 
+const builder = function(yargs) 
+{
+    return yargs
+            .positional("command", {describe: "command to implement", default: "start"})
+            .positional("script", {describe: "script to apply a command to"})
+            /*
+            .fail(function (msg, err, yargs) {
+                if (err) throw err // preserve stack
+                console.error('You broke it!')
+                console.error(msg)
+                console.error('You should be doing', yargs.help())
+                process.exit(1)
+              })
+            */
+}
+
 const handler = function( argv )
 {
-    //console.log(  );
+    //console.log( argv );
+
+    /*    
+    var parse = require('yargs-parser');
+    argv = parse( process.argv.slice(2), 
+    {
+        configuration:
+        {
+            'short-option-groups': false
+        }
+    });
+    */
+    
+    //console.log( argv );
     
     // Unknown command
     if( !commands.includes(argv.command) )
@@ -289,7 +295,10 @@ const handler = function( argv )
                 })
                 .then( ()=> 
                 {
-                    return logs( abs_script_path );
+                    if( argv.silent )
+                        return Promise.resolve()
+                    else
+                        return logs( abs_script_path );
                 })
                 .catch( err => 
                 {
@@ -320,5 +329,17 @@ const handler = function( argv )
     }
 }
 
-yargs.command("* [command] [script]", "Control the app", builder, handler).parse()
+    var parse = require('yargs-parser');
+    argv = parse( process.argv.slice(2), 
+    {
+        configuration:
+        {
+            'short-option-groups': false
+        }
+    });
+    
+yargs.command("* [command] [script]", "Control the app", builder, handler)
+    .nargs('silent', 0)
+    .parserConfiguration({'short-option-groups': false})
+    .parse()
 
