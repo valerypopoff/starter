@@ -1,6 +1,13 @@
 # starter
 
-Starter is a CLI wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever) and needs them to be installed globally. When you start an app with Starter, it automatically restarts the app when file changes in the directory are detected and ensures that the app runs continuously (restarts after a crash). Starter needs 
+Starter is a CLI wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever) and needs them to be installed globally. 
+
+When you start an app with Starter:
+* The app automatically restarts when file changes in the directory are detected 
+* The app runs continuously and restarts after a crash
+* You can close the terminal/ssh session without terminating the app
+
+Start: `starter start app.js`, stop: `starter stop app.js`, show logs: `starter logs app.js`
 
 ## Install
 
