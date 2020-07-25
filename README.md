@@ -21,7 +21,7 @@ Both `command` and `script` are optional. If you miss out `script`, it'll try to
 
 Every script is identifyed by it's absilute path before and after it's started. 
 
-#### Start
+### Start
 ```bash
 starter start server.js
 ```
@@ -40,32 +40,46 @@ starter start
 starter
 ```
 
-#### Stop
+### Stop
 ```bash
 starter stop server.js
 ```
+or
 ```bash
 starter stop
 ```
 
-#### Logs
+### Logs
 App's logs are collected in the `starter.out` file in the script directory. To see them in the terminal:
 ```bash
 starter logs server.js
 ```
+or
 ```bash
 starter logs
 ```
 
 ## Options
-The only option supported yet is `-silent` and it only works with `start` command:
+
+### -silent
+The `-silent` option only works with `start` command:
 ```bash
 starter start server.js -silent
 ```
+It prevents showing logs in the terminal after a start. It doesn't prevent logs from collecting in the `starter.out` file.
 
-It starts the app without outputting showing logs into terminal. It doesn't prevemt logs from collecting in the `starter.out` file.
+### -hodemon_opts
+This option is for passing additional options to `nodemon`
+```bash
+starter start server.js -hodemon_opts='--ignore test.js --verbose'
+```
+### -forever_opts
+This option is for passing additional options to `forever`
+```bash
+starter start server.js -forever_opts='--minUptime 5000'
+```
 
 ## Configuration and other tricks
 Since starter is a wrapper for `nodemon` you can:
 * Config nodemon as described [here](https://www.npmjs.com/package/nodemon#config-files)
-* After the app is strated, you can do [whatever is possible](https://www.npmjs.com/package/forever#command-line-usage) to do with a started app with `forever`. Like, see it in forever's list of running apps `forever list`
+* After the app is strated, you can do [whatever is possible](https://www.npmjs.com/package/forever#command-line-usage) to do with a started app with `forever`. Like, see forever's list of running apps with `forever list` command
