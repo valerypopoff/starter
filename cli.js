@@ -5,13 +5,9 @@ const starter = require('./index');
 const fs = require("fs");
 const path = require("path");
 const which = require('which');
-
-
 const child_process = require('child_process');
-//const exec = require('child_process').exec;
-//const execSync = require('child_process').execSync;
 
-const default_scripts = ['server.js', 'app.js'];
+const default_scripts = ['server.js', 'app.js', 'index.js'];
 const commands = ['start', 'stop', 'logs'];
 
 function stop( script_path, explicit_command )
@@ -73,14 +69,8 @@ function start( script_path )
         var nodemon_path = which.sync('nodemon', {nothrow: true});
         if( !nodemon_path ) 
             nodemon_path = '/usr/bin/nodemon';
-            
-        //var spawn = child_process.spawn('bash', ['-c', `nohup nodemon -I -x 'forever --uid "${script_path}" ${script_path}' > ${logs_path} 2>&1 &`]);
-        //var spawn = child_process.spawn('bash', ['-c', `nohup nodemon -I -x 'forever --killTree --uid "${script_path}" ${script_path}' > ${logs_path} 2>&1 &`]);
-        //var spawn = child_process.spawn('bash', ['-c', `nohup forever --uid "${script_path}" /usr/bin/nodemon --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
-        //var spawn = child_process.spawn('bash', ['-c', `nohup forever --killTree --uid "${script_path}" /usr/bin/nodemon --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
-        //var spawn = child_process.spawn('bash', ['-c', `nohup forever --killTree --uid "${script_path}" /usr/bin/nodemon --ignore node_modules/ --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
-        //var spawn = child_process.spawn('bash', ['-c', `nohup forever --killTree --uid "${script_path}" /usr/bin/nodemon --cwd ${path.dirname(script_path)} --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
-        //var spawn = child_process.spawn('bash', ['-c', `forever start -c 'nodemon' server.js`]);
+
+
 
         var spawn = child_process.spawn('bash', ['-c', `nohup forever --killTree --uid "${script_path}" ${nodemon_path} --cwd ${path.dirname(script_path)} --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
         {detached: true, stdio: ['inherit']});
@@ -115,12 +105,8 @@ function start( script_path )
         spawn.stdout.on('data', function (data) {
           console.log('stdout: ' + data);
         });
-        
-        
-        //spawn.unref();
 
     })
-
 }
 
 function logs( script_path )
@@ -164,43 +150,7 @@ function logs( script_path )
             }
         });
         
-        
-        /*
-        spawn.stdout.on('data', function (data)
-        {
-            //console.log("Showing logs");
-            console.log('stdout: ' + data);
-        });
-        */
-        
-        spawn.stdout.pipe( process.stdout );
-        
-        
-        
-        /*
-        child_process.exec(`tail ${logs_path} -f`,
-        {
-            //timeout : 1
-        }, function (error, stdout, stderr) 
-        {
-            if( !error )
-            {
-                console.log("Showing logs");
-                
-                resolve(true);
-                return;
-            }
-            else
-            {
-                //console.error(error);
-                
-                reject(true);
-                return;
-            }
-        
-        })
-        */
-        
+        spawn.stdout.pipe( process.stdout );        
     })
 }
 
@@ -210,34 +160,10 @@ const builder = function(yargs)
     return yargs
             .positional("command", {describe: "command to implement", default: "start"})
             .positional("script", {describe: "script to apply a command to"})
-            /*
-            .fail(function (msg, err, yargs) {
-                if (err) throw err // preserve stack
-                console.error('You broke it!')
-                console.error(msg)
-                console.error('You should be doing', yargs.help())
-                process.exit(1)
-              })
-            */
 }
 
 const handler = function( argv )
 {
-    //console.log( argv );
-
-    /*    
-    var parse = require('yargs-parser');
-    argv = parse( process.argv.slice(2), 
-    {
-        configuration:
-        {
-            'short-option-groups': false
-        }
-    });
-    */
-    
-    //console.log( argv );
-    
     // Unknown command
     if( !commands.includes(argv.command) )
     {
@@ -251,9 +177,6 @@ const handler = function( argv )
         for( var i=0; i<default_scripts.length; i++ )
         {
             var curr_path = path.join(process.env.PWD, default_scripts[i]);
-            
-            //console.log(curr_path)
-            //console.log( path.dirname(curr_path) )
             
             if( fs.existsSync(curr_path) )
             {
@@ -286,8 +209,6 @@ const handler = function( argv )
     {
         case 'start':
             {
-                //console.log(`About to start with command '${argv.command}', script name '${argv.script}'`)
-
                 return stop( abs_script_path )
                 .then( ()=> 
                 {
@@ -328,15 +249,6 @@ const handler = function( argv )
             } break;
     }
 }
-
-    var parse = require('yargs-parser');
-    argv = parse( process.argv.slice(2), 
-    {
-        configuration:
-        {
-            'short-option-groups': false
-        }
-    });
     
 yargs.command("* [command] [script]", "Control the app", builder, handler)
     .nargs('silent', 0)

@@ -6,17 +6,28 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/valerypopoff/starter.git"
+  },
+  "keywords": [
+    "monitor",
+    "development",
+    "restart",
+    "terminal",
+    "cli",
+    "fault tolerant",
+    "tools"
+  ],
   "bin": "cli.js",
   "dependencies": {
     "yargs": "^15.3.1",
     "fs": "",
     "path": "",
-    "exec": "",
     "which": "^2.0.2"
-  }
+  },
+  "author": "Valera Popov",
+  "license": "ISC"
 }
 
 
