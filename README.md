@@ -24,7 +24,7 @@ Starter accepts parameters in the form:
 starter [command] [script] [-options]
 ```
 
-Both `command` and `script` are optional. If you miss out `script`, it'll try to find a script in the current durectory and start it. It'll look for `server.js`, `app.js`, `index.js` (in this order) and will take the first it finds. If nothing of the above found, it won't start. If you miss out both `command` and `script`, it'll default `command` to `start`.
+Both `command` and `script` are optional. If you miss out `script`, it'll try to find a script in the current durectory and use it. It'll look for `server.js`, `app.js`, `index.js` (in this order) and will take the first it finds. If nothing of the above found, the command will do nothing. If you miss out both `command` and `script`, it'll default `command` to `start`.
 
 ### Start
 ```bash
@@ -85,6 +85,8 @@ starter start app.js -forever_opts='--minUptime 5000'
 ```
 
 ## Configuration and other tricks
-Since starter is a wrapper for `nodemon` you can:
-* Config nodemon as described [here](https://www.npmjs.com/package/nodemon#config-files)
-* After the app is strated, you can do [whatever is possible](https://www.npmjs.com/package/forever#command-line-usage) to do with a started app with `forever`. Like, see forever's list of running apps with `forever list` command
+Starter is a wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever). When you start an app with Starter, it does
+```bash
+nohup forever ${forever_opts} --killTree --uid "${script_path}" ${nodemon_path} --cwd ${path.dirname(script_path)} ${nodemon_opts} --exitcrash -I ${script_path} > ${path.join(path.dirname(script_path), 'starter.out')} 2>&1 &
+```
+`${nodemon_opts}` and `${forever_opts}` are strings that you pass to Starter with `-nodemon_opts` and `-forever_opts`. Use them to configure `nodemon` and `forever` when starting an app. Or turn to other configuration possibilities that don't include passing arguments. Like, [placing `nodemon.json` file into your app's directory](https://www.npmjs.com/package/nodemon#config-files). After the app is strated, you can manipulate it with `forever`. Like, [see forever's list of running apps with `forever list` command](https://www.npmjs.com/package/forever#command-line-usage).
