@@ -12,7 +12,7 @@ Start: `starter start app.js`, stop: `starter stop app.js`, show logs: `starter 
 ## Install
 
 ```bash
-npm install -g starter
+npm install -g @valerypopoff/starter
 npm install -g nodemon
 npm install -g forever
 ```
