@@ -32,7 +32,7 @@ starter start app.js
 ```
 If you start the app that is already running, Starter will stop it and then start it again.
 
-After a successfull start Starter outputs logs both into `starter.out` file in the script directory and into the terminal. The latter you can stop with Ctrl+C (for Linux). It will not stop the app or it's logging into `starter.out` file. You can later see the logs again with starter's` logs` command.
+After a successfull start Starter outputs logs both into `starter.out` file in the script directory and into the terminal. The latter you can stop with Ctrl+C (for Linux). It will not stop the app or it's logging into `starter.out` file. You can later see the logs again with starter's `logs` command.
 
 Since Starter can assume `command` and `script`, the following commands do the same:
 ```bash
