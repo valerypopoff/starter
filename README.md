@@ -73,10 +73,10 @@ starter start app.js -silent
 ```
 It prevents showing logs in the terminal after a start. It doesn't prevent logs from collecting in the `starter.out` file.
 
-### -hodemon_opts
+### -nodemon_opts
 This option is for passing additional options to `nodemon`
 ```bash
-starter start app.js -hodemon_opts='--ignore test.js --verbose'
+starter start app.js -nodemon_opts='--ignore test.js --verbose'
 ```
 ### -forever_opts
 This option is for passing additional options to `forever`

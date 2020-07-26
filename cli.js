@@ -60,9 +60,9 @@ function stop( script_path, explicit_command )
         }) })
 }
 
-function start( script_path, hodemon_opts, forever_opts )
+function start( script_path, nodemon_opts, forever_opts )
 {
-    hodemon_opts = hodemon_opts ? hodemon_opts : '';
+    nodemon_opts = nodemon_opts ? nodemon_opts : '';
     forever_opts = forever_opts ? forever_opts : '';
 
     return new Promise( (resolve, reject) => 
@@ -76,7 +76,7 @@ function start( script_path, hodemon_opts, forever_opts )
 
         //var spawn = child_process.spawn('bash', ['-c', `nohup forever --killTree --uid "${script_path}" ${nodemon_path} --cwd ${path.dirname(script_path)} --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], {detached: true, stdio: ['inherit']});
 
-        var spawn = child_process.spawn('bash', ['-c', `nohup forever ${forever_opts} --killTree --uid "${script_path}" ${nodemon_path} --cwd ${path.dirname(script_path)} ${hodemon_opts} --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
+        var spawn = child_process.spawn('bash', ['-c', `nohup forever ${forever_opts} --killTree --uid "${script_path}" ${nodemon_path} --cwd ${path.dirname(script_path)} ${nodemon_opts} --exitcrash -I ${script_path} > ${logs_path} 2>&1 &`], 
         {detached: true, stdio: ['inherit']});
 
         spawn.on('exit', function(exit_code)
@@ -216,7 +216,7 @@ const handler = function( argv )
                 return stop( abs_script_path )
                 .then( ()=> 
                 {
-                    return start( abs_script_path, argv.hodemon_opts, argv.forever_opts );   
+                    return start( abs_script_path, argv.nodemon_opts, argv.forever_opts );   
                 })
                 .then( ()=> 
                 {
