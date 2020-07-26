@@ -1,6 +1,6 @@
-# starter_cli
+# starter
 
-Starter is a CLI wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever) and needs them to be installed globally. 
+Starter is a CLI tool for starting a server. It's a wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever) and needs them to be installed globally. 
 
 When you start an app with Starter:
 * The app automatically restarts when file changes in the directory are detected 
