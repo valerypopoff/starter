@@ -26,11 +26,9 @@ starter [command] [script] [-options]
 
 Both `command` and `script` are optional. If you miss out `script`, it'll try to find a script in the current durectory and start it. It'll look for `server.js`, `app.js`, `index.js` (in this order) and will take the first it finds. If nothing of the above found, it won't start. If you miss out both `command` and `script`, it'll default `command` to `start`.
 
-Every script is identifyed by it's absilute path before and after it's started. 
-
 ### Start
 ```bash
-starter start server.js
+starter start app.js
 ```
 If you start the app that is already running, Starter will stop it and then start it again.
 
@@ -38,7 +36,7 @@ After a successfull start Starter outputs logs both into `starter.out` file in t
 
 Since Starter can assume `command` and `script`, the following commands do the same:
 ```bash
-starter start server.js
+starter start app.js
 ```
 ```bash
 starter start
@@ -49,7 +47,7 @@ starter
 
 ### Stop
 ```bash
-starter stop server.js
+starter stop app.js
 ```
 or
 ```bash
@@ -59,7 +57,7 @@ starter stop
 ### Logs
 App's logs are collected in the `starter.out` file in the script directory. To see them in the terminal:
 ```bash
-starter logs server.js
+starter logs app.js
 ```
 or
 ```bash
@@ -71,19 +69,19 @@ starter logs
 ### -silent
 The `-silent` option only works with `start` command:
 ```bash
-starter start server.js -silent
+starter start app.js -silent
 ```
 It prevents showing logs in the terminal after a start. It doesn't prevent logs from collecting in the `starter.out` file.
 
 ### -hodemon_opts
 This option is for passing additional options to `nodemon`
 ```bash
-starter start server.js -hodemon_opts='--ignore test.js --verbose'
+starter start app.js -hodemon_opts='--ignore test.js --verbose'
 ```
 ### -forever_opts
 This option is for passing additional options to `forever`
 ```bash
-starter start server.js -forever_opts='--minUptime 5000'
+starter start app.js -forever_opts='--minUptime 5000'
 ```
 
 ## Configuration and other tricks
