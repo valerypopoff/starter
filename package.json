@@ -1,6 +1,6 @@
 {
   "name": "@valerypopoff/starter",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "A CLI tool for starting a server. Automatically restarts the app after a crash and when file changes in the directory are detected. You can close the terminal/ssh session without terminating the app",
   "main": "index.js",
   "scripts": {
