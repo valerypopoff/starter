@@ -1,5 +1,5 @@
 {
-  "name": "starter",
+  "name": "starter_cli",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
@@ -19,11 +19,9 @@
     "fault tolerant",
     "tools"
   ],
-  "bin": "cli.js",
+  "bin": {"starter": "./cli.js"},
   "dependencies": {
     "yargs": "^15.3.1",
-    "fs": "",
-    "path": "",
     "which": "^2.0.2"
   },
   "author": "Valera Popov",
