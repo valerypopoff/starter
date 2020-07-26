@@ -1,4 +1,4 @@
-# starter
+# starter_cli
 
 Starter is a CLI wrapper for [nodemon](https://www.npmjs.com/package/nodemon) and [forever](https://www.npmjs.com/package/forever) and needs them to be installed globally. 
 
